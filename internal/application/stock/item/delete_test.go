@@ -27,6 +27,10 @@ func TestDeleteSuccess(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+	itemId, err := domain.NewItemId(resCreateDto.Id)
+	if err != nil {
+		t.Fatal(err)
+	}
 
 	// When
 	reqDeleteDto := &item.DeleteRequestDto{
@@ -38,7 +42,7 @@ func TestDeleteSuccess(t *testing.T) {
 	}
 
 	// Then
-	a, err := repository.Get(domain.Id(resCreateDto.Id))
+	a, err := repository.Get(itemId)
 	if err != nil {
 		t.Fatal(err)
 	}

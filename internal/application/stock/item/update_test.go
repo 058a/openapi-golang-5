@@ -43,12 +43,16 @@ func TestUpdateSuccess(t *testing.T) {
 	}
 
 	// Then
-	a, err := repository.Get(domain.Id(resCreateDto.Id))
+	itemId, err := domain.NewItemId(resCreateDto.Id)
+	if err != nil {
+		t.Fatal(err)
+	}
+	a, err := repository.Get(itemId)
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	if a.GetName() != afterName {
-		t.Errorf("expected %s, got %s", afterName, a.GetName())
+	if a.Name.String() != afterName {
+		t.Errorf("expected %s, got %s", afterName, a.Name.String())
 	}
 }

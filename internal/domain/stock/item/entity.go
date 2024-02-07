@@ -1,9 +1,22 @@
 package item
 
-import "github.com/google/uuid"
+import (
+	"fmt"
 
-type Id uuid.UUID
+	"github.com/google/uuid"
+)
 
-func (e Id) UUID() uuid.UUID {
-	return uuid.UUID(e)
+type itemId struct {
+	value uuid.UUID
+}
+
+func NewItemId(value uuid.UUID) (itemId, error) {
+	if value == uuid.Nil {
+		return itemId{}, fmt.Errorf("nil item id")
+	}
+	return itemId{value}, nil
+}
+
+func (e itemId) UUID() uuid.UUID {
+	return e.value
 }

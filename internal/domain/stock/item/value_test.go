@@ -8,36 +8,29 @@ import (
 
 func TestNewItemName(t *testing.T) {
 	// Given
-	name := "test"
+	value := "test"
 
 	// When
-	a, err := item.NewItemName(name)
+	a, err := item.NewItemName(value)
 	if err != nil {
 		t.Fatal(err)
 	}
 
 	// Then
-	if a.String() != name {
-		t.Errorf("expected %s, got %s", name, a.String())
+	if a.String() != value {
+		t.Errorf("expected %s, got %s", value, a.String())
 	}
 }
 
 func TestNewItemNameEmpty(t *testing.T) {
 	// Given
-	name := ""
+	value := ""
 
 	// When
-	a, err := item.NewItemName(name)
-	if err == nil {
-		t.Fatal("expected error, got nil")
-	}
+	_, err := item.NewItemName(value)
 
 	// Then
-	if a != nil {
-		t.Errorf("expected nil, got %v", a)
-	}
-
-	if err != item.ErrEmptyItemName {
-		t.Errorf("expected %v, got %v", item.ErrEmptyItemName, err)
+	if err == nil {
+		t.Fatal("expected error, got nil")
 	}
 }

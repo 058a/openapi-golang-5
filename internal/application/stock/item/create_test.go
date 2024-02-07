@@ -33,13 +33,16 @@ func TestCreateSuccess(t *testing.T) {
 	if resDto.Id == uuid.Nil {
 		t.Errorf("expected %s, got %s", uuid.Nil, resDto.Id)
 	}
-
-	a, err := repository.Get(domain.Id(resDto.Id))
+	itemId, err := domain.NewItemId(resDto.Id)
+	if err != nil {
+		t.Fatal(err)
+	}
+	a, err := repository.Get(itemId)
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	if a.GetName() != reqDto.Name {
-		t.Errorf("expected %s, got %s", reqDto.Name, a.GetName())
+	if a.Name.String() != reqDto.Name {
+		t.Errorf("expected %s, got %s", reqDto.Name, a.Name.String())
 	}
 }

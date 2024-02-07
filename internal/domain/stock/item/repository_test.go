@@ -23,11 +23,15 @@ func TestCreate(t *testing.T) {
 	r := &item.Repository{Db: db}
 
 	// Given
-	name, err := item.NewItemName(uuid.NewString())
+	itemId, err := item.NewItemId(uuid.New())
 	if err != nil {
 		t.Fatal(err)
 	}
-	a, err := item.New(name)
+	itemName, err := item.NewItemName(uuid.NewString())
+	if err != nil {
+		t.Fatal(err)
+	}
+	a, err := item.NewAggregate(itemId, itemName)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -49,8 +53,8 @@ func TestCreate(t *testing.T) {
 		t.Errorf("expected %s, got %s", a.GetId().UUID().String(), data.ID)
 	}
 
-	if data.Name != name.String() {
-		t.Errorf("expected %s, got %s", name, data.Name)
+	if data.Name != a.Name.String() {
+		t.Errorf("expected %s, got %s", a.Name.String(), data.Name)
 	}
 
 	if data.Deleted != false {
@@ -76,15 +80,15 @@ func TestUpdate(t *testing.T) {
 	r := &item.Repository{Db: db}
 
 	// Given
-	beforeName, err := item.NewItemName(uuid.NewString())
+	itemId, err := item.NewItemId(uuid.New())
 	if err != nil {
 		t.Fatal(err)
 	}
-	afterName, err := item.NewItemName(uuid.NewString())
+	itemName, err := item.NewItemName(uuid.NewString())
 	if err != nil {
 		t.Fatal(err)
 	}
-	a, err := item.New(beforeName)
+	a, err := item.NewAggregate(itemId, itemName)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -102,7 +106,11 @@ func TestUpdate(t *testing.T) {
 	}
 
 	// When
-	a.ChangeName(afterName)
+	afterItemName, err := item.NewItemName(uuid.NewString())
+	if err != nil {
+		t.Fatal(err)
+	}
+	a.Name = afterItemName
 	a.Delete()
 	err = r.Save(a)
 	if err != nil {
@@ -119,8 +127,8 @@ func TestUpdate(t *testing.T) {
 		t.Errorf("expected %s, got %s", beforeData.ID, afterData.ID)
 	}
 
-	if afterData.Name != a.GetName() {
-		t.Errorf("expected %s, got %s", a.GetName(), afterData.Name)
+	if afterData.Name != a.Name.String() {
+		t.Errorf("expected %s, got %s", a.Name.String(), afterData.Name)
 	}
 
 	if afterData.Deleted != a.IsDeleted() {
@@ -146,11 +154,15 @@ func TestFind(t *testing.T) {
 	r := &item.Repository{Db: db}
 
 	// Given
-	name, err := item.NewItemName("test")
+	itemId, err := item.NewItemId(uuid.New())
 	if err != nil {
 		t.Fatal(err)
 	}
-	a, err := item.New(name)
+	itemName, err := item.NewItemName("test")
+	if err != nil {
+		t.Fatal(err)
+	}
+	a, err := item.NewAggregate(itemId, itemName)
 	if err != nil {
 		t.Fatal(err)
 	}

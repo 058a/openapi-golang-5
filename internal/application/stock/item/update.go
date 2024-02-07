@@ -12,8 +12,12 @@ type UpdateRequestDto struct {
 }
 
 func Update(req *UpdateRequestDto, r item.IRepository) error {
-	id := item.Id(req.Id)
-	a, err := r.Get(id)
+	itemId, err := item.NewItemId(req.Id)
+	if err != nil {
+		return err
+	}
+
+	a, err := r.Get(itemId)
 	if err != nil {
 		return err
 	}
@@ -22,7 +26,7 @@ func Update(req *UpdateRequestDto, r item.IRepository) error {
 	if err != nil {
 		return err
 	}
-	a.ChangeName(itemName)
+	a.Name = itemName
 
 	err = r.Save(a)
 	if err != nil {

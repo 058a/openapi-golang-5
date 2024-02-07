@@ -16,11 +16,17 @@ type CreateResponseDto struct {
 }
 
 func Create(req *CreateRequestDto, r item.IRepository) (*CreateResponseDto, error) {
+	itemId, err := item.NewItemId(uuid.New())
+	if err != nil {
+		return nil, err
+	}
+
 	itemName, err := item.NewItemName(req.Name)
 	if err != nil {
 		return nil, err
 	}
-	a, err := item.New(itemName)
+
+	a, err := item.NewAggregate(itemId, itemName)
 	if err != nil {
 		return nil, err
 	}
@@ -31,6 +37,6 @@ func Create(req *CreateRequestDto, r item.IRepository) (*CreateResponseDto, erro
 
 	return &CreateResponseDto{
 		Id:   a.GetId().UUID(),
-		Name: a.GetName(),
+		Name: a.Name.String(),
 	}, nil
 }
