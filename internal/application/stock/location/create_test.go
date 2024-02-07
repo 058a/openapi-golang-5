@@ -9,7 +9,6 @@ import (
 	"github.com/google/uuid"
 )
 
-
 func TestCreateSuccess(t *testing.T) {
 	// Setup
 	db, err := database.Open()
@@ -18,13 +17,13 @@ func TestCreateSuccess(t *testing.T) {
 	}
 	defer db.Close()
 	repository := &domain.Repository{Db: db}
-	
+
 	// Given
 	reqDto := &location.CreateRequestDto{
 		Name: uuid.NewString(),
 	}
 
-	// When	
+	// When
 	resDto, err := location.Create(reqDto, repository)
 	if err != nil {
 		t.Fatal(err)

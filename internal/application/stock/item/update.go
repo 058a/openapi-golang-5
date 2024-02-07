@@ -8,12 +8,12 @@ import (
 
 type UpdateRequestDto struct {
 	Id   uuid.UUID
-	Name string	
+	Name string
 }
 
 func Update(req *UpdateRequestDto, r item.IRepository) error {
 	id := item.Id(req.Id)
-	a, err := r.Get( id)
+	a, err := r.Get(id)
 	if err != nil {
 		return err
 	}
@@ -28,6 +28,6 @@ func Update(req *UpdateRequestDto, r item.IRepository) error {
 	if err != nil {
 		return err
 	}
-	
+
 	return nil
 }

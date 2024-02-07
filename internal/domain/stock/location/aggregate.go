@@ -7,8 +7,8 @@ import (
 )
 
 type Aggregate struct {
-	id   		Id
-	name 		string
+	id      Id
+	name    string
 	deleted bool
 }
 
@@ -18,8 +18,8 @@ func New(name string) (*Aggregate, error) {
 	}
 
 	return &Aggregate{
-		id:   Id(uuid.New()),
-		name: name,
+		id:      Id(uuid.New()),
+		name:    name,
 		deleted: false,
 	}, nil
 }

@@ -21,8 +21,8 @@ type Repository struct {
 
 func (r *Repository) Save(a *aggregate) error {
 	data := &sqlboiler.StockItem{
-		ID:   a.id.UUID().String(),
-		Name: a.name.String(),
+		ID:      a.id.UUID().String(),
+		Name:    a.name.String(),
 		Deleted: a.deleted,
 	}
 
@@ -31,7 +31,7 @@ func (r *Repository) Save(a *aggregate) error {
 		r.Db,
 		true,
 		[]string{"id"},
-		boil.Whitelist("name","deleted"),
+		boil.Whitelist("name", "deleted"),
 		boil.Infer(),
 	)
 	if err != nil {
@@ -53,20 +53,19 @@ func (r *Repository) Get(id Id) (*aggregate, error) {
 	}
 
 	a := &aggregate{
-		id:   id,
-		name: *itemName,
+		id:      id,
+		name:    *itemName,
 		deleted: data.Deleted,
 	}
-	
+
 	return a, nil
 }
-
 
 func (r *Repository) Find(id Id) (bool, error) {
 	found, err := sqlboiler.StockItemExists(context.Background(), r.Db, id.UUID().String())
 	if err != nil {
 		return false, err
 	}
-	
+
 	return found, nil
 }

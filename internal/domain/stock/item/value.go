@@ -18,4 +18,3 @@ func NewItemName(value string) (*ItemName, error) {
 func (v *ItemName) String() string {
 	return v.value
 }
-

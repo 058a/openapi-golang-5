@@ -36,7 +36,7 @@ func (h *RequestHelper) Post(reqBody *oapicodegen.PostStockItemJSONRequestBody) 
 	return res, nil
 }
 
-func (h *RequestHelper) Put( stockItemId uuid.UUID, reqBody *oapicodegen.PutStockItemJSONRequestBody) (*http.Response, error) {
+func (h *RequestHelper) Put(stockItemId uuid.UUID, reqBody *oapicodegen.PutStockItemJSONRequestBody) (*http.Response, error) {
 	reqBodyJson, _ := json.Marshal(reqBody)
 	req, err := http.NewRequest(
 		http.MethodPut,

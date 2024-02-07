@@ -6,7 +6,7 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-type Api struct {}
+type Api struct{}
 
 func New() oapicodegen.ServerInterface {
 	return &Api{}

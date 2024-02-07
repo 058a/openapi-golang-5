@@ -23,6 +23,6 @@ func Delete(req *DeleteRequestDto, r location.IRepository) error {
 	if err != nil {
 		return err
 	}
-	
+
 	return nil
 }

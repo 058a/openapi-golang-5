@@ -21,8 +21,8 @@ type Repository struct {
 
 func (r *Repository) Save(a *Aggregate) error {
 	data := &sqlboiler.StockLocation{
-		ID:   a.id.UUID().String(),
-		Name: a.name,
+		ID:      a.id.UUID().String(),
+		Name:    a.name,
 		Deleted: a.deleted,
 	}
 
@@ -31,7 +31,7 @@ func (r *Repository) Save(a *Aggregate) error {
 		r.Db,
 		true,
 		[]string{"id"},
-		boil.Whitelist("name","deleted"),
+		boil.Whitelist("name", "deleted"),
 		boil.Infer(),
 	)
 	if err != nil {
@@ -48,20 +48,19 @@ func (r *Repository) Get(id Id) (*Aggregate, error) {
 	}
 
 	a := &Aggregate{
-		id:   id,
-		name: data.Name,
+		id:      id,
+		name:    data.Name,
 		deleted: data.Deleted,
 	}
-	
+
 	return a, nil
 }
-
 
 func (r *Repository) Find(id Id) (bool, error) {
 	found, err := sqlboiler.StockLocationExists(context.Background(), r.Db, id.UUID().String())
 	if err != nil {
 		return false, err
 	}
-	
+
 	return found, nil
 }

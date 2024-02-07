@@ -7,12 +7,12 @@ import (
 )
 
 type CreateRequestDto struct {
-	Name string	
+	Name string
 }
 
 type CreateResponseDto struct {
-	Id uuid.UUID
-	Name string	
+	Id   uuid.UUID
+	Name string
 }
 
 func Create(req *CreateRequestDto, r location.IRepository) (*CreateResponseDto, error) {
@@ -27,7 +27,7 @@ func Create(req *CreateRequestDto, r location.IRepository) (*CreateResponseDto, 
 	}
 
 	return &CreateResponseDto{
-		Id: a.GetId().UUID(),
+		Id:   a.GetId().UUID(),
 		Name: a.GetName(),
 	}, nil
 }

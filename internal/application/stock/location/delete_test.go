@@ -9,7 +9,6 @@ import (
 	"github.com/google/uuid"
 )
 
-
 func TestDeleteSuccess(t *testing.T) {
 	// Setup
 	db, err := database.Open()
@@ -35,7 +34,7 @@ func TestDeleteSuccess(t *testing.T) {
 	}
 
 	if err := location.Delete(reqDeleteDto, repository); err != nil {
-		t.Fatal(err)		
+		t.Fatal(err)
 	}
 
 	// Then

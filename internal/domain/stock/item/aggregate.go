@@ -5,15 +5,15 @@ import (
 )
 
 type aggregate struct {
-	id   		Id
-	name 		ItemName
+	id      Id
+	name    ItemName
 	deleted bool
 }
 
 func New(name *ItemName) (*aggregate, error) {
 	return &aggregate{
-		id:   Id(uuid.New()),
-		name: *name,
+		id:      Id(uuid.New()),
+		name:    *name,
 		deleted: false,
 	}, nil
 }

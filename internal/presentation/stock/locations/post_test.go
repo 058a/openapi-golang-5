@@ -53,7 +53,7 @@ func TestPostBadRequest(t *testing.T) {
 		client: &http.Client{},
 	}
 	rch := ResponseConvertHelper{}
-	
+
 	zeroLenName := ""
 	overLenName := strings.Repeat("a", 101)
 
@@ -81,7 +81,7 @@ func TestPostBadRequest(t *testing.T) {
 	// Then
 	if postResZeroLen.StatusCode != http.StatusBadRequest {
 		t.Errorf("want %d, got %d", http.StatusBadRequest, postResZeroLen.StatusCode)
-	}	
+	}
 
 	postResZeroLenBody, err := rch.AsBadRequest(postResZeroLen)
 	if err != nil {
@@ -90,16 +90,16 @@ func TestPostBadRequest(t *testing.T) {
 	if postResZeroLenBody.Message == "" {
 		t.Errorf("expected empty, actual %s", postResZeroLenBody.Message)
 	}
-	
+
 	if postResOverLen.StatusCode != http.StatusBadRequest {
 		t.Errorf("want %d, got %d", http.StatusBadRequest, postResOverLen.StatusCode)
-	}	
+	}
 
 	postResOverLenBody, err := rch.AsBadRequest(postResOverLen)
 	if err != nil {
 		t.Fatal(err)
 	}
-	if postResOverLenBody.Message== "" {
+	if postResOverLenBody.Message == "" {
 		t.Errorf("expected empty, actual %s", postResOverLenBody.Message)
 	}
 }

@@ -18,7 +18,7 @@ func TestPutOk(t *testing.T) {
 		client: &http.Client{},
 	}
 	rch := ResponseConvertHelper{}
-	
+
 	bforeName := uuid.NewString()
 	afterName := uuid.NewString()
 
@@ -53,13 +53,12 @@ func TestPutOk(t *testing.T) {
 		t.Fatal(err)
 	}
 	defer putRes.Body.Close()
-	
+
 	// Then
 	if putRes.StatusCode != http.StatusOK {
 		t.Errorf("want %d, got %d", http.StatusOK, putRes.StatusCode)
 	}
 }
-
 
 func TestPutNotFound(t *testing.T) {
 	// Setup
@@ -92,7 +91,7 @@ func TestPutBadRequest(t *testing.T) {
 		client: &http.Client{},
 	}
 	rch := ResponseConvertHelper{}
-	
+
 	zeroLenName := ""
 	overLenName := strings.Repeat("a", 101)
 
@@ -151,7 +150,7 @@ func TestPutBadRequest(t *testing.T) {
 	if putResBodyZeroLen.Message == "" {
 		t.Errorf("expected not empty, actual empty")
 	}
-	
+
 	if putResOverLen.StatusCode != http.StatusBadRequest {
 		t.Errorf("want %d, got %d", http.StatusBadRequest, putResOverLen.StatusCode)
 	}

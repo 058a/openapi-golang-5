@@ -35,10 +35,10 @@ func DeleteStockItem(ctx echo.Context, stockItemId openapi_types.UUID) error {
 	if !found {
 		return echo.NewHTTPError(http.StatusNotFound, "stock item not found")
 	}
-	
+
 	// Main Process
 	reqDto := &item.DeleteRequestDto{
-		Id:   stockItemId,
+		Id: stockItemId,
 	}
 	if err := item.Delete(reqDto, repository); err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
